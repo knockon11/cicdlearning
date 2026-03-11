@@ -7,6 +7,6 @@ describe('SauceDemo Login Suite', () => {
 
         // التأكد إننا دخلنا صح
         cy.url().should('include', '/inventory.html')
-        cy.get('.title').should('have.text', 'Items')
+        cy.get('.title').should('have.text', 'Products')
     })
 })
