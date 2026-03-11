@@ -10,3 +10,24 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+  name: Cypress CI
+  on: [ push ]
+  jobs:
+    run-tests:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+
+        - name: Run Cypress Tests
+          uses: cypress-io/github-action@v6
+          with:
+            browser: chrome
+          continue-on-error: true # عشان يكمل ويرفع الصور حتى لو فشل
+
+        - name: Upload Screenshots on Failure
+          uses: actions/upload-artifact@v4
+          if: failure() # السطر ده معناه: ارفع الصور بس لو التيست فشل
+          with:
+            name: cypress-screenshots
+            path: cypress/screenshots
